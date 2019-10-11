@@ -5,6 +5,8 @@ import { TabNavigator } from './TabNavigatorComponent';
 import Authentication from '../screens/Authentication';
 import OderHistory from '../screens/OderHistory';
 import ChangeInfo from '../screens/ChangeInfo';
+import React, { Component } from 'react';
+console.disableYellowBox = true;
 
 var { width } = Dimensions.get('window');
 let routeConfigs = {
@@ -17,18 +19,18 @@ let routeConfigs = {
   'ChangeInfo': {
     screen: ChangeInfo,
   },
-  'TabNav': {
+  'Home page': {
       screen: TabNavigator,
   }
 };
 let drawerNavigatorConfig = {
-  initialRouteName: 'TabNav',
+  initialRouteName: 'Home page',
   drawerWidth: width / 2,
   drawerPosition: 'left',
   contentOptions: {
     activeTintColor: 'red',
   },
-  order: ["TabNav", "OderHistory", "ChangeInfo"],
+  order: ['Home page','Authentication' ,"OderHistory", "ChangeInfo"],
 };
 
 const DrawerNavigator = createDrawerNavigator(routeConfigs, drawerNavigatorConfig);

@@ -7,17 +7,19 @@ export default class MyWalletComponent extends Component {
         const { params = {} } = navigation.state;
         let tabBarLabel = 'Seach';
         let tabBarIcon = () => (
+           
             <Image
                 source={require('./../Images/appIcon/search.png')}
-                style={{ width: 26, height: 26, tintColor: '#007256' }}
+                style={{ width: 26, height: 26 }}
             />
+
         );
         return { tabBarLabel, tabBarIcon };
     }
 
     render() {
         return (
-            <View>
+            <View style = {{flex: 1}}> 
   
             <HeaderComponent {...this.props} />
                 

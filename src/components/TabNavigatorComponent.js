@@ -20,17 +20,18 @@ let routeConfigs = {
 };
 console.log('helloTab');
 let tabNavigatorConfig = {
+  activeTintColor: 'blue',
+  //inactiveTintColor: '#fff',
   tabBarPosition: 'bottom',
   animationEnabled: true,
   swipeEnabled: true,
   tabBarOptions: {
     showIcon: true,
-    activeTintColor: 'blue',
     labelStyle: {
       fontSize: 13,
     },
     style: {
-      backgroundColor: 'lightblue',
+      backgroundColor: '#fff',
       padding: -10
     },
   },
