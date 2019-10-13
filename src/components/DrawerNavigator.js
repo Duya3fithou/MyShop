@@ -25,7 +25,7 @@ let routeConfigs = {
 };
 let drawerNavigatorConfig = {
   initialRouteName: 'Home page',
-  drawerWidth: width / 2,
+  drawerWidth: width *2/3,
   drawerPosition: 'left',
   contentOptions: {
     activeTintColor: 'red',

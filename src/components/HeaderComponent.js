@@ -73,8 +73,8 @@ let styles = StyleSheet.create({
   },
   ifIPX: {
     ...ifIphoneX({
-      height: 30,
-      backgroundColor: '#fff',
+      height: 17,
+      backgroundColor: '#34B089',
 
     }, {
       height: 0
