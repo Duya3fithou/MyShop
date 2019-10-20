@@ -4,7 +4,6 @@ import {
 } from 'react-native';
 
 import { ifIphoneX } from 'react-native-iphone-x-helper'
-import DrawerNavigator from '../components/DrawerNavigator'
 import icBack from '../Images/appIcon/back_white.png';
 import icLogo from '../Images/appIcon/ic_logo.png'
 
@@ -26,18 +25,6 @@ export default class Authentication extends Component {
             isSignIn: false
         })
     }
-    static navigationOptions = ({ navigation }) => {
-        let drawerLabel = 'Authentication';
-        console.log('hello');
-        let drawerIcon = () => (
-            <Image
-                source={require('./../Images/appIcon/home0.png')}
-                style={{ width: 26, height: 26, tintColor: backgroundColor }}
-            />
-        );
-        return { drawerLabel, drawerIcon };
-    }
-
     render() {
         const { navigate } = this.props.navigation;
         const signInJSX = (
@@ -79,11 +66,11 @@ export default class Authentication extends Component {
                     {mainJSX}
                     <View style={styles.controlStyle}>
                         <TouchableOpacity style={styles.signInStyle} onPress={this.signIn.bind(this)}>
-                            <Text style={this.state.isSignIn ? styles.activeStyle : styles.inActiveStyle} 
+                            <Text style={this.state.isSignIn ? styles.activeStyle : styles.inActiveStyle}
                             >Sign In</Text>
                         </TouchableOpacity>
                         <TouchableOpacity style={styles.signUpStyle} onPress={this.signUp.bind(this)}>
-                            <Text style={this.state.isSignIn ? styles.inActiveStyle : styles.activeStyle} 
+                            <Text style={this.state.isSignIn ? styles.inActiveStyle : styles.activeStyle}
                             >Sign Up</Text>
                         </TouchableOpacity>
                     </View>
@@ -112,7 +99,7 @@ const styles = StyleSheet.create({
     },
     ifIPX: {
         ...ifIphoneX({
-            height: 30,
+            height: 25,
             backgroundColor: '#3EBA77',
 
         }, {

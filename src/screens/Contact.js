@@ -9,11 +9,11 @@ export default class Contact extends Component {
     static navigationOptions = ({ navigation }) => {
         const { params = {} } = navigation.state;
         let tabBarLabel = 'Contact';
-        let tabBarIcon = (focused) => (
+        let tabBarIcon = () => (
 
             <Image
-                source={require('./../Images/appIcon/contact.png')}
-                style={{ width: 26, height: 26, tintColor: '' }}
+                source={require('./../Images/appIcon/contact0.png')}
+                style={{ width: 26, height: 26, }}
             />
 
         );

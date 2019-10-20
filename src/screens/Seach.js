@@ -9,7 +9,7 @@ export default class MyWalletComponent extends Component {
         let tabBarIcon = () => (
            
             <Image
-                source={require('./../Images/appIcon/search.png')}
+                source={require('./../Images/appIcon/search0.png')}
                 style={{ width: 26, height: 26 }}
             />
 

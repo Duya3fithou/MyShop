@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { ifIphoneX } from 'react-native-iphone-x-helper'
 import {
-  Text, View, Image, TouchableHighlight, StyleSheet, Dimensions, TextInput
+  Text, View, Image, TouchableOpacity, StyleSheet, Dimensions, TextInput
 } from 'react-native';
 
 const { height } = Dimensions.get('window');
@@ -15,14 +15,14 @@ export default class HeaderComponent extends Component {
         <View style={styles.wrapper}
         >
           <View style={styles.line1Header}>
-            <TouchableHighlight
+            <TouchableOpacity
               onPress={() => this.props.navigation.toggleDrawer()}>
 
               <Image
                 style={styles.iconStyle}
                 source={require('./../Images/appIcon/ic_menu.png')}
               />
-            </TouchableHighlight>
+            </TouchableOpacity>
             <Text style={styles.titleStyle}>
               Wearing a Dress
         </Text>

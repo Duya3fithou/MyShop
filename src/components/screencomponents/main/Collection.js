@@ -1,29 +1,40 @@
 import React, { Component } from 'react';
-import { View, Text, Dimensions, Image, StyleSheet } from 'react-native';
+import { View, Text, Dimensions, Image, StyleSheet, TouchableOpacity } from 'react-native';
 const { height, width } = Dimensions.get('window');
-import Swiper from 'react-native-swiper';
 import bannerImage from '../../../Images/temp/banner.jpg';
+import { withNavigation } from 'react-navigation';
 
 
-export default class Collection extends Component {
 
+class Collection extends Component {
+
+    showDetails = (_id) => {
+        this.props.navigation.navigate('ListProduct');
+    }
 
     render() {
+
+
         return (
             <View style={styles.wrapper}>
                 <View style={{ flex: 1, justifyContent: 'center' }}>
-                    <Text style = {styles.textStyle}>SPRING COLLECTION</Text>
+                    <Text style={styles.textStyle}>SPRING COLLECTION</Text>
                 </View>
-                <View style={styles.imageWrapper}>
-                    <Image source={bannerImage} style = {styles.imageStyle}/>
-                </View>
-
+                <TouchableOpacity style={styles.imageWrapper}
+                    onPress={() => this.showDetails(1)}>
+                    <View >
+                        <Image source={bannerImage} style={styles.imageStyle} />
+                    </View>
+                </TouchableOpacity>
             </View>
         );
     }
 }
-const imageWidth =  width - 40;
-const imageHeight = (imageWidth/933) *465;
+const imageWidth = width - 40;
+const imageHeight = (imageWidth / 933) * 465;
+
+export default withNavigation(Collection);
+
 
 const styles = StyleSheet.create({
     wrapper: {
@@ -35,17 +46,17 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.2,
         padding: 10, paddingTop: 0
     },
-    textStyle:{
+    textStyle: {
         fontSize: 20,
         color: '#AFAEAF'
     },
-    imageStyle:{
-        height: imageHeight, 
+    imageStyle: {
+        height: imageHeight,
         width: imageWidth
-    }, 
-    imageWrapper:{
+    },
+    imageWrapper: {
         flex: 4,
-        alignItems : 'center',
+        alignItems: 'center',
         justifyContent: 'center',
     }
 });

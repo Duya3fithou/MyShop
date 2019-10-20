@@ -1,16 +1,20 @@
 import React, { Component } from 'react';
-import { View, Text, Dimensions, Image, StyleSheet, ImageBackground } from 'react-native';
+import { View, Text, Dimensions, Image, StyleSheet, ImageBackground, TouchableHighlight, TouchableOpacity } from 'react-native';
 const { height, width } = Dimensions.get('window');
 import Swiper from 'react-native-swiper';
 import little from '../../../Images/temp/little.jpg';
 import maxi from '../../../Images/temp/maxi.jpg';
 import party from '../../../Images/temp/party.jpg';
+import { withNavigation } from 'react-navigation';
 
 
 
-
-export default class Category extends Component {
+ class Category extends Component {
+    showDetails = (_id) => {
+        this.props.navigation.navigate('ListProduct');
+    }
     render() {
+       
         return (
             <View style={styles.wrapper}>
                 <View style={{ flex: 1, justifyContent: 'center' }}>
@@ -18,27 +22,37 @@ export default class Category extends Component {
                 </View>
                 <View style={styles.imageWrapper}>
                     <Swiper>
-                        <ImageBackground source={little} style={styles.imageStyle}>
-                            <Text style={styles.categoryTitle}>
-                                Little Dress
+                        <TouchableOpacity onPress={() => this.showDetails(1)}>
+                            <ImageBackground source={little} style={styles.imageStyle}>
+                                <Text style={styles.categoryTitle}>
+                                    Little Dress
                             </Text>
-                        </ImageBackground>
-                        <ImageBackground source={maxi} style={styles.imageStyle} >
-                            <Text style={styles.categoryTitle}>
-                                Maxi Dress
+                            </ImageBackground>
+                        </TouchableOpacity>
+                        <TouchableOpacity onPress={() => this.showDetails(1)}>
+                            <ImageBackground source={maxi} style={styles.imageStyle} >
+                                <Text style={styles.categoryTitle}>
+                                    Maxi Dress
                             </Text>
-                        </ImageBackground>
-                        <ImageBackground source={party} style={styles.imageStyle} >
-                            <Text style={styles.categoryTitle}>
-                                Party Dress
+                            </ImageBackground>
+                        </TouchableOpacity>
+                        <TouchableOpacity onPress={() => this.showDetails(1)}>
+                            <ImageBackground source={party} style={styles.imageStyle} >
+                                <Text style={styles.categoryTitle}>
+                                    Party Dress
                             </Text>
-                        </ImageBackground>
+                            </ImageBackground>
+                        </TouchableOpacity>
+
                     </Swiper>
                 </View>
             </View>
+
+
         );
     }
 }
+export default withNavigation(Category);
 const imageWidth = width - 40;
 const imageHeight = (imageWidth / 933) * 465;
 

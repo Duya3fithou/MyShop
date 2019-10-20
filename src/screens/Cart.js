@@ -7,18 +7,11 @@ export default class Cart extends Component {
     static navigationOptions = ({ navigation }) => {
         const { params = {} } = navigation.state;
         let tabBarLabel = 'Cart';
-        let tabBarIcon = (focused) => (
-            focused ?
-                <Image
-                    source={require('./../Images/appIcon/cart.png')}
-                    style={{ width: 26, height: 26, tintColor: "" }}
-                />
-                :
+        let tabBarIcon = () => (
                 <Image
                     source={require('./../Images/appIcon/cart0.png')}
-                    style={{ width: 26, height: 26, tintColor: "#fff" }}
+                    style={{ width: 26, height: 26, }}
                 />
-
         );
         return { tabBarLabel, tabBarIcon };
     }
