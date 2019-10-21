@@ -1,24 +1,24 @@
 import React, { Component } from 'react';
-import { Text, View, Image } from 'react-native';
+import { Text, View, Image, TouchableOpacity } from 'react-native';
 import HeaderComponent from '../components/HeaderComponent';
 
-export default class ListProduct extends Component {
 
+export default class ProductDetail extends Component {
+    goBack(){
+        this.props.navigation.navigate('ListProduct')
+    }
 
     render() {
         return (
             <View style = {{flex: 1}}> 
   
             <HeaderComponent {...this.props} />
-                
-                <View style={{
-                    flex: 1,
-                    backgroundColor: '#007256',
-                    alignItems: 'center',
-                    justifyContent: 'center'
-                }}
-                >
-                    <Text style={{ fontWeight: 'bold', fontSize: 22, color: 'white' }}>This is  Product detail screen</Text>
+                <View>
+                    <TouchableOpacity onPress={this.goBack.bind(this)}>
+                        <Text>
+                            go back to List
+                        </Text>
+                    </TouchableOpacity>
                 </View>
             </View>
         )

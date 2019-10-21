@@ -34,6 +34,8 @@ export default class HeaderComponent extends Component {
           <TextInput
             style={styles.textInput}
             placeholder='What do you want to buy'
+            underlineColorAndroid = 'transparent'
+            
           >
 
           </TextInput>
@@ -59,7 +61,8 @@ let styles = StyleSheet.create({
     height: height / 23,
     backgroundColor: '#FFF',
     paddingLeft: 10,
-    alignItems: 'center'
+    alignItems: 'center',
+    paddingVertical: 0
   },
   iconStyle: {
     width: 25,

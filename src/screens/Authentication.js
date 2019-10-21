@@ -7,7 +7,6 @@ import { ifIphoneX } from 'react-native-iphone-x-helper'
 import icBack from '../Images/appIcon/back_white.png';
 import icLogo from '../Images/appIcon/ic_logo.png'
 
-const backgroundColor = '#0067a7';
 export default class Authentication extends Component {
     constructor(props) {
         super(props);
@@ -24,6 +23,16 @@ export default class Authentication extends Component {
         this.setState({
             isSignIn: false
         })
+    }
+    static navigationOptions = ({ navigation }) => {
+        let drawerLabel = 'Authentication';
+        let drawerIcon = () => (
+            <Image
+                source={require('./../Images/appIcon/back.png')}
+                style={{ width: 26, height: 26, tintColor: '#964f8e' }}
+            />
+        );
+        return { drawerLabel, drawerIcon };
     }
     render() {
         const { navigate } = this.props.navigation;

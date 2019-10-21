@@ -1,13 +1,17 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, Image, Dimensions } from 'react-native';
+import { View, Text, StyleSheet, Image, Dimensions, TouchableOpacity } from 'react-native';
 import sp1 from '../../../Images/temp/sp1.jpeg';
 import sp2 from '../../../Images/temp/sp2.jpeg';
 import sp3 from '../../../Images/temp/sp3.jpeg';
 import sp4 from '../../../Images/temp/sp4.jpeg';
+import { withNavigation } from 'react-navigation';
 
 
-export default class TopProduct extends Component {
-    state = {}
+class TopProduct extends Component {
+    showDetails = (_id) => {
+        this.props.navigation.navigate('ProductDetail');
+    }
+
     render() {
         return (
             <View style={styles.container}>
@@ -15,7 +19,7 @@ export default class TopProduct extends Component {
                     <Text style={styles.tittle}>TOP PRODUCT</Text>
                 </View>
                 <View style={styles.body}>
-                    <View style={styles.productWrapper}>
+                    <TouchableOpacity style={styles.productWrapper} onPress={() => this.showDetails(2)}>
                         <Image source={sp1}
                             style={styles.productImage}
                         />
@@ -25,8 +29,8 @@ export default class TopProduct extends Component {
                         <Text style={styles.productPrice}>
                             300$
                         </Text>
-                    </View>
-                    <View style={styles.productWrapper}>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={styles.productWrapper} onPress={() => this.showDetails(2)}>
                         <Image source={sp2}
                             style={styles.productImage}
                         />
@@ -36,10 +40,10 @@ export default class TopProduct extends Component {
                         <Text style={styles.productPrice}>
                             400$
                         </Text>
-                    </View>
-                    <View style={{ height: 10, width }} />
+                    </TouchableOpacity>
+                    <TouchableOpacity style={{ height: 10, width }} />
 
-                    <View style={styles.productWrapper}>
+                    <TouchableOpacity style={styles.productWrapper} onPress={() => this.showDetails(2)}>
                         <Image source={sp3}
                             style={styles.productImage}
                         />
@@ -49,8 +53,8 @@ export default class TopProduct extends Component {
                         <Text style={styles.productPrice}>
                             200$
                         </Text>
-                    </View>
-                    <View style={styles.productWrapper}>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={styles.productWrapper} onPress={() => this.showDetails(2)}>
            
                         <Image source={sp4}
                             style={styles.productImage}
@@ -61,12 +65,13 @@ export default class TopProduct extends Component {
                         <Text style={styles.productPrice}>
                             350$
                         </Text>
-                    </View>
+                    </TouchableOpacity>
                 </View>
             </View>
         );
     }
 }
+export default withNavigation(TopProduct);
 const { width } = Dimensions.get('window');
 const productWidth = (width - 50) / 2;
 const productImageHeight = (productWidth / 361) * 452;

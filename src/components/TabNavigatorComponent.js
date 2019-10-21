@@ -22,14 +22,14 @@ HomeStack.navigationOptions = ({ navigation }) => {
 
   const { params = {} } = navigation.state;
   let tabBarLabel = 'Home';
-  let initialRoute = 'Main'
+
   let tabBarIcon = () => (
     <Image
       source={require('./../Images/appIcon/home0.png')}
       style={{ width: 26, height: 26 }}
     />
   );
-  return { tabBarLabel, tabBarIcon, initialRoute };
+  return { tabBarLabel, tabBarIcon };
 
 }
 
