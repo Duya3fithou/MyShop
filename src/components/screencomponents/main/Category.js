@@ -1,55 +1,47 @@
 import React, { Component } from 'react';
-import { View, Text, Dimensions, Image, StyleSheet, ImageBackground, TouchableHighlight, TouchableOpacity } from 'react-native';
+import {
+    View, Text, Dimensions, Image, StyleSheet, ImageBackground,
+    TouchableOpacity, Platform
+} from 'react-native';
 const { height, width } = Dimensions.get('window');
 import Swiper from 'react-native-swiper';
-import little from '../../../Images/temp/little.jpg';
-import maxi from '../../../Images/temp/maxi.jpg';
-import party from '../../../Images/temp/party.jpg';
 import { withNavigation } from 'react-navigation';
+import CateAndroid from './CateAndroid'
+const url = 'http://localhost/app/images/type/';
 
-
-
- class Category extends Component {
-    showDetails = (_id) => {
-        this.props.navigation.navigate('ListProduct');
+class Category extends Component {
+    showDetails = (cate) => {
+        this.props.navigation.navigate('ListProduct', cate);
     }
     render() {
-       
-        return (
-            <View style={styles.wrapper}>
-                <View style={{ flex: 1, justifyContent: 'center' }}>
-                    <Text style={styles.textStyle}>LIST OF CATEGORY</Text>
+        const { types, cate } = this.props;
+        if (Platform.OS === 'android') {
+            return (
+                <CateAndroid types={types} />
+            );
+        }
+        else
+            return (
+                <View style={styles.wrapper} >
+                    <View style={{ flex: 1, justifyContent: 'center' }}>
+                        <Text style={styles.textStyle}>LIST OF CATEGORY</Text>
+                    </View>
+                    <View style={styles.imageWrapper}>
+                        <Swiper >
+                            {types.map(e => (
+                                <TouchableOpacity onPress={() => this.showDetails(e)} key={e.id}>
+                                    <ImageBackground source={{ uri: `${url}${e.image}` }} style={styles.imageStyle}>
+                                        <Text style={styles.categoryTitle}>
+                                            {e.name}
+                                        </Text>
+                                    </ImageBackground>
+                                </TouchableOpacity>
+                            ))}
+                        </Swiper>
+                    </View>
                 </View>
-                <View style={styles.imageWrapper}>
-                    <Swiper>
-                        <TouchableOpacity onPress={() => this.showDetails(1)}>
-                            <ImageBackground source={little} style={styles.imageStyle}>
-                                <Text style={styles.categoryTitle}>
-                                    Little Dress
-                            </Text>
-                            </ImageBackground>
-                        </TouchableOpacity>
-                        <TouchableOpacity onPress={() => this.showDetails(1)}>
-                            <ImageBackground source={maxi} style={styles.imageStyle} >
-                                <Text style={styles.categoryTitle}>
-                                    Maxi Dress
-                            </Text>
-                            </ImageBackground>
-                        </TouchableOpacity>
-                        <TouchableOpacity onPress={() => this.showDetails(1)}>
-                            <ImageBackground source={party} style={styles.imageStyle} >
-                                <Text style={styles.categoryTitle}>
-                                    Party Dress
-                            </Text>
-                            </ImageBackground>
-                        </TouchableOpacity>
 
-                    </Swiper>
-                </View>
-            </View>
-
-
-        );
+            );
     }
 }
 export default withNavigation(Category);

@@ -8,6 +8,10 @@ const { height } = Dimensions.get('window');
 
 
 export default class HeaderComponent extends Component {
+  goBack() {
+    this.props.navigation.navigate('Main');
+  }
+  
   render() {
     return (
       <View>
@@ -23,19 +27,24 @@ export default class HeaderComponent extends Component {
                 source={require('./../Images/appIcon/ic_menu.png')}
               />
             </TouchableOpacity>
-            <Text style={styles.titleStyle}>
-              Wearing a Dress
+            <TouchableOpacity
+              onPress={this.goBack.bind(this)}>
+              <Text style={styles.titleStyle}>
+                Wearing a Dress
         </Text>
-            <Image
-              style={styles.iconStyle}
-              source={require('./../Images/appIcon/ic_logo.png')}
-            />
+            </TouchableOpacity>
+            <TouchableOpacity onPress={this.goBack.bind(this)} >
+              <Image
+                style={styles.iconStyle}
+                source={require('./../Images/appIcon/ic_logo.png')}
+              />
+            </TouchableOpacity>
           </View>
           <TextInput
             style={styles.textInput}
             placeholder='What do you want to buy'
-            underlineColorAndroid = 'transparent'
-            
+            underlineColorAndroid='transparent'
+
           >
 
           </TextInput>

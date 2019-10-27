@@ -38,7 +38,7 @@ export default withNavigation(Collection);
 
 const styles = StyleSheet.create({
     wrapper: {
-        height: height * 0.27,
+        height: height * 0.35,
         backgroundColor: '#FFF',
         margin: 10,
         shadowColor: '#2E272B',

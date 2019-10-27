@@ -1,76 +1,47 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, Image, Dimensions, TouchableOpacity } from 'react-native';
-import sp1 from '../../../Images/temp/sp1.jpeg';
-import sp2 from '../../../Images/temp/sp2.jpeg';
-import sp3 from '../../../Images/temp/sp3.jpeg';
-import sp4 from '../../../Images/temp/sp4.jpeg';
+import { View, Text, StyleSheet, Image, Dimensions, TouchableOpacity, FlatList } from 'react-native';
+
 import { withNavigation } from 'react-navigation';
+const url = 'http://localhost/app/images/product/';
 
 
 class TopProduct extends Component {
-    showDetails = (_id) => {
-        this.props.navigation.navigate('ProductDetail');
+    showDetails = (topProducts) => {
+        this.props.navigation.navigate('ProductDetail',{ product: topProducts });
+        
     }
 
     render() {
+        const { topProducts } = this.props;
         return (
             <View style={styles.container}>
                 <View style={styles.tittleWrapper}>
                     <Text style={styles.tittle}>TOP PRODUCT</Text>
                 </View>
                 <View style={styles.body}>
-                    <TouchableOpacity style={styles.productWrapper} onPress={() => this.showDetails(2)}>
-                        <Image source={sp1}
-                            style={styles.productImage}
-                        />
-                        <Text style={styles.productName}>
-                            Product Name
-                        </Text>
-                        <Text style={styles.productPrice}>
-                            300$
-                        </Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={styles.productWrapper} onPress={() => this.showDetails(2)}>
-                        <Image source={sp2}
-                            style={styles.productImage}
-                        />
-                        <Text style={styles.productName}>
-                            Product Name
-                        </Text>
-                        <Text style={styles.productPrice}>
-                            400$
-                        </Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={{ height: 10, width }} />
-
-                    <TouchableOpacity style={styles.productWrapper} onPress={() => this.showDetails(2)}>
-                        <Image source={sp3}
-                            style={styles.productImage}
-                        />
-                        <Text style={styles.productName}>
-                            Product Name
-                        </Text>
-                        <Text style={styles.productPrice}>
-                            200$
-                        </Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={styles.productWrapper} onPress={() => this.showDetails(2)}>
-           
-                        <Image source={sp4}
-                            style={styles.productImage}
-                        />
-                        <Text style={styles.productName}>
-                            Product Name
-                        </Text>
-                        <Text style={styles.productPrice}>
-                            350$
-                        </Text>
-                    </TouchableOpacity>
+                    {topProducts.map(e => (
+                        <TouchableOpacity style={styles.productWrapper} onPress={() => this.showDetails(e)} key = {e.id}>
+                            <Image source={{uri: `${url}${e.images[1]}`}}
+                                style={styles.productImage}
+                            />
+                            <Text style={styles.productName}>
+                                {e.name.toUpperCase()}
+                                </Text>
+                            <Text style={styles.productPrice}>
+                                {e.price}
+                                </Text>
+                        </TouchableOpacity>
+                    ))
+                    }
                 </View>
             </View>
         );
     }
 }
+
+
+
+
 export default withNavigation(TopProduct);
 const { width } = Dimensions.get('window');
 const productWidth = (width - 50) / 2;

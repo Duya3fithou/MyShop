@@ -15,27 +15,22 @@ const HomeStack = createStackNavigator({
   Main: Main,
   ListProduct: ListProduct,
   ProductDetail: ProductDetail,
-  initialRouteName: Main
 }, { headerMode: 'none' });
-
-HomeStack.navigationOptions = ({ navigation }) => {
-
-  const { params = {} } = navigation.state;
-  let tabBarLabel = 'Home';
-
-  let tabBarIcon = () => (
-    <Image
-      source={require('./../Images/appIcon/home0.png')}
-      style={{ width: 26, height: 26 }}
-    />
-  );
-  return { tabBarLabel, tabBarIcon };
-
-}
 
 let routeConfigs = {
   'Home': {
     screen: HomeStack,
+    navigationOptions : ({ navigation }) => {
+      let tabBarLabel = 'Home';
+      let tabBarIcon = () => (
+        <Image
+          source={require('./../Images/appIcon/home0.png')}
+          style={{ width: 26, height: 26 }}
+        />);
+      return {
+        tabBarLabel, tabBarIcon,
+      }
+    }
   },
   'Cart': {
     screen: Cart,
@@ -48,10 +43,8 @@ let routeConfigs = {
   },
 };
 let tabNavigatorConfig = {
-
   activeTintColor: '#2B7C85',
   inactiveTintColor: '#222222',
-
   tabBarPosition: 'bottom',
   animationEnabled: true,
   swipeEnabled: true,
@@ -59,13 +52,11 @@ let tabNavigatorConfig = {
     showIcon: true,
     labelStyle: {
       fontSize: 13,
-
     },
     style: {
       backgroundColor: '#fff',
       padding: -10
     },
-
   },
   order: ['Home', 'Cart', 'Seach', 'Contact'],
 
@@ -74,7 +65,6 @@ let tabNavigatorConfig = {
     activeTabBackgrounds={['#ede7e6', '#eae3f6', '#eae4f6']}
     {...props}
   />
-
 };
 
 

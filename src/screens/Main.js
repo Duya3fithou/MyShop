@@ -6,18 +6,32 @@ import Category from '../components/screencomponents/main/Category'
 import TopProduct from '../components/screencomponents/main/TopProduct'
 
 export default class Main extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            types: [],
+            topProducts: []
+        }
+    }
 
+    componentDidMount() {
+        fetch('http://localhost/app/')
+            .then(res => res.json())
+            .then(resJSON => {
+                const { type, product } = resJSON;
+                this.setState({ types: type, topProducts: product });
+            })
 
+    }
     render() {
+        const { types, topProducts } = this.state;
         return (
-            <View style = {{flex: 1}}>
+            <View style={{ flex: 1 }}>
                 <HeaderComponent {...this.props} />
                 <ScrollView style={{ flex: 1, backgroundColor: '#DBDBD8' }}>
-
-                    
                     <Collection />
-                    <Category />
-                    <TopProduct />
+                    <Category types={types} />
+                    <TopProduct topProducts={topProducts} />
                 </ScrollView>
             </View>
 

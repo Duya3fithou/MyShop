@@ -14,6 +14,7 @@ export default class ListProduct extends Component {
         const { container, wrapper, header, backIcon, titleStyle,
             productContainer, productInfo, productImage, lastRowInfo,
             txtName, txtPrice, txtMaterial, txtColor, txtShowDetail, color } = styles;
+            
         return (
             <View style={{ flex: 1 }}>
                 <HeaderComponent {...this.props} />
