@@ -27,6 +27,7 @@ export default class OrderHistory extends Component {
         const { wrapper, header, headerTitle, backIconStyle, body, orderRow } = styles;
         return (
             <View style={wrapper}>
+             <View style={styles.ifIPX}></View>
                 <View style={header}>
                     <View />
                     <Text style={headerTitle}>Order History</Text>
@@ -36,7 +37,6 @@ export default class OrderHistory extends Component {
                 </View>
                 <View style={body}>
                     <View style={{ flex: 1 }}>
-                        <View style={styles.ifIPX}></View>
                         <ScrollView>
                             <View style={orderRow}>
                                 <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
@@ -68,7 +68,7 @@ export default class OrderHistory extends Component {
                                 </View>
                                 <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
                                     <Text style={{ color: '#9A9A9A', fontWeight: 'bold' }}>Status:</Text>
-                                    <Text style={{ color: '#2ABB9C' }}>Pending</Text>
+                                    <Text style={{ color: '#2ABB9C' }}>Being transported</Text>
                                 </View>
                                 <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
                                     <Text style={{ color: '#9A9A9A', fontWeight: 'bold' }}>Total:</Text>
@@ -105,7 +105,7 @@ export default class OrderHistory extends Component {
                                 </View>
                                 <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
                                     <Text style={{ color: '#9A9A9A', fontWeight: 'bold' }}>Status:</Text>
-                                    <Text style={{ color: '#2ABB9C' }}>Pending</Text>
+                                    <Text style={{ color: '#2ABB9C' }}>Received</Text>
                                 </View>
                                 <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
                                     <Text style={{ color: '#9A9A9A', fontWeight: 'bold' }}>Total:</Text>
@@ -123,7 +123,7 @@ export default class OrderHistory extends Component {
                                 </View>
                                 <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
                                     <Text style={{ color: '#9A9A9A', fontWeight: 'bold' }}>Status:</Text>
-                                    <Text style={{ color: '#2ABB9C' }}>Pending</Text>
+                                    <Text style={{ color: '#2ABB9C' }}>Received</Text>
                                 </View>
                                 <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
                                     <Text style={{ color: '#9A9A9A', fontWeight: 'bold' }}>Total:</Text>
@@ -143,7 +143,9 @@ const { width } = Dimensions.get('window');
 const styles = StyleSheet.create({
     wrapper: { flex: 1, backgroundColor: '#fff' },
     header: { flex: 1, backgroundColor: '#2ABB9C', alignItems: 'center', justifyContent: 'space-between', flexDirection: 'row', paddingHorizontal: 10 },// eslint-disable-line
-    headerTitle: { fontFamily: 'Avenir', color: '#fff', fontSize: 20 },
+    headerTitle: { fontFamily: 'Avenir', color: '#fff', fontSize: 20
+    
+},
     backIconStyle: { width: 30, height: 30 },
     body: { flex: 10, backgroundColor: '#F6F6F6' },
     orderRow: {

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, View, Image, TouchableOpacity, StyleSheet, ScrollView } from 'react-native';
+import { Text, View, Image, TouchableOpacity, StyleSheet, FlatList, ScrollView } from 'react-native';
 import HeaderComponent from '../components/HeaderComponent';
 import backList from '../Images/appIcon/backList.png';
 import sp1 from '../Images/temp/sp1.jpeg'
@@ -7,19 +7,20 @@ export default class ListProduct extends Component {
     goBack() {
         this.props.navigation.navigate('Main');
     }
-    gotoDetail() {
-        this.props.navigation.navigate('ProductDetail')
+    gotoDetails = (product) => {
+        this.props.navigation.navigate('ProductDetail',{ product: product });
+        
     }
     render() {
         const { container, wrapper, header, backIcon, titleStyle,
             productContainer, productInfo, productImage, lastRowInfo,
             txtName, txtPrice, txtMaterial, txtColor, txtShowDetail, color } = styles;
-            
+        const { product } = this.props;
         return (
             <View style={{ flex: 1 }}>
                 <HeaderComponent {...this.props} />
                 <View style={container}>
-                    <ScrollView style={wrapper}>
+                <ScrollView style={wrapper}>
                         <View style={header}>
                             <TouchableOpacity onPress={this.goBack.bind(this)}>
                                 <Image
@@ -41,14 +42,15 @@ export default class ListProduct extends Component {
                                     <View style={color} />
                                     <TouchableOpacity>
                                         <Text style={txtShowDetail}
-                                        onPress = {this.gotoDetail.bind(this)}>
+                                        onPress = {this.gotoDetail}>
                                             Details
                                     </Text>
                                     </TouchableOpacity>
                                 </View>
                             </View>
                         </View>
-                    </ScrollView>
+                        </ScrollView>
+                    
                 </View>
             </View>
         )
@@ -138,3 +140,35 @@ const styles = StyleSheet.create({
     }
 
 })
+
+/**
+ * <ScrollView style={wrapper}>
+                        <View style={header}>
+                            <TouchableOpacity onPress={this.goBack.bind(this)}>
+                                <Image
+                                    source={backList}
+                                    style={backIcon}
+                                />
+                            </TouchableOpacity>
+                            <Text style={titleStyle}>Party Dress</Text>
+                            <View style={{ width: 30 }} />
+                        </View>
+                        <View style={productContainer}>
+                            <Image style={productImage} source={sp1} />
+                            <View style={productInfo}>
+                                <Text style={txtName}>Lace Sleeve Si</Text>
+                                <Text style={txtPrice}>117$</Text>
+                                <Text style={txtMaterial}>Material Silk</Text>
+                                <View style={lastRowInfo}>
+                                    <Text style={txtColor}>Color RoyalBlue</Text>
+                                    <View style={color} />
+                                    <TouchableOpacity>
+                                        <Text style={txtShowDetail}
+                                        onPress = {this.gotoDetail}>
+                                            Details
+                                    </Text>
+                                    </TouchableOpacity>
+                                </View>
+                            </View>
+                        </View>
+ */

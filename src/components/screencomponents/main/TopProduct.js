@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { View, Text, StyleSheet, Image, Dimensions, TouchableOpacity, FlatList } from 'react-native';
 
 import { withNavigation } from 'react-navigation';
-const url = 'http://localhost/app/images/product/';
+const url = 'http://192.168.1.13/app/images/product/';
 
 
 class TopProduct extends Component {
@@ -10,29 +10,36 @@ class TopProduct extends Component {
         this.props.navigation.navigate('ProductDetail',{ product: topProducts });
         
     }
-
     render() {
-        const { topProducts } = this.props;
+        const { topProducts, item } = this.props;
         return (
             <View style={styles.container}>
                 <View style={styles.tittleWrapper}>
                     <Text style={styles.tittle}>TOP PRODUCT</Text>
                 </View>
                 <View style={styles.body}>
-                    {topProducts.map(e => (
-                        <TouchableOpacity style={styles.productWrapper} onPress={() => this.showDetails(e)} key = {e.id}>
-                            <Image source={{uri: `${url}${e.images[1]}`}}
+                <FlatList 
+                contentContainerStyle={styles.body}
+                data = {topProducts}
+                renderItem = {({item, index})=>{
+                    return(
+                        <TouchableOpacity item ={item} index = {index} 
+                        style={styles.productWrapper} onPress={() => this.showDetails(item)} key = {item.id} >
+                            <Image source={{uri: `${url}${item.images[1]}`}}
                                 style={styles.productImage}
                             />
                             <Text style={styles.productName}>
-                                {e.name.toUpperCase()}
+                                {item.name.toUpperCase()}
                                 </Text>
                             <Text style={styles.productPrice}>
-                                {e.price}
+                                {item.price}$
                                 </Text>
                         </TouchableOpacity>
-                    ))
-                    }
+                    )
+
+                }}>
+
+                </FlatList>
                 </View>
             </View>
         );
@@ -94,3 +101,20 @@ const styles = StyleSheet.create({
         color: '#662F90',
     }
 })
+
+
+/**
+topProducts.map(e => (
+                        <TouchableOpacity style={styles.productWrapper} onPress={() => this.showDetails(e)} key = {e.id}>
+                            <Image source={{uri: `${url}${e.images[1]}`}}
+                                style={styles.productImage}
+                            />
+                            <Text style={styles.productName}>
+                                {e.name.toUpperCase()}
+                                </Text>
+                            <Text style={styles.productPrice}>
+                                {e.price}
+                                </Text>
+                        </TouchableOpacity>
+                    ))
+ */

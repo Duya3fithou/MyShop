@@ -4,6 +4,7 @@ import HeaderComponent from '../components/HeaderComponent';
 import Collection from '../components/screencomponents/main/Collection';
 import Category from '../components/screencomponents/main/Category'
 import TopProduct from '../components/screencomponents/main/TopProduct'
+import initData from '../api/dataInit.js'
 
 export default class Main extends Component {
     constructor(props) {
@@ -15,14 +16,14 @@ export default class Main extends Component {
     }
 
     componentDidMount() {
-        fetch('http://localhost/app/')
-            .then(res => res.json())
+        initData()
             .then(resJSON => {
                 const { type, product } = resJSON;
                 this.setState({ types: type, topProducts: product });
             })
 
     }
+
     render() {
         const { types, topProducts } = this.state;
         return (

@@ -11,7 +11,7 @@ export default class HeaderComponent extends Component {
   goBack() {
     this.props.navigation.navigate('Main');
   }
-  
+
   render() {
     return (
       <View>
@@ -31,7 +31,7 @@ export default class HeaderComponent extends Component {
               onPress={this.goBack.bind(this)}>
               <Text style={styles.titleStyle}>
                 Wearing a Dress
-        </Text>
+              </Text>
             </TouchableOpacity>
             <TouchableOpacity onPress={this.goBack.bind(this)} >
               <Image

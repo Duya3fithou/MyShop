@@ -6,13 +6,16 @@ import {
 const back = require('../Images/appIcon/back.png');
 const cart = require('../Images/appIcon/cartfull.png');
 import HeaderComponent from '../components/HeaderComponent';
-const url = 'http://localhost/app/images/product/';
+const url = 'http://192.168.1.13/app/images/product/';
+import global from '../components/global.js'
 
 export default class ProductDetail extends Component {
     goBack() {
-        this.props.navigation.navigate('ListProduct')
+        this.props.navigation.navigate('Main')
     }
-
+    addThisProductToCart(){
+        global.addProductToCart(this.props.navigation.getParam('product'))
+    }
     render() {
         const {
             wrapper, cardStyle, header,
@@ -21,48 +24,49 @@ export default class ProductDetail extends Component {
             textSmoke, textHighlight, textMain, titleContainer,
             descContainer, productImageStyle, descStyle, txtMaterial, txtColor
         } = styles;
-       const { name, id, price, color, material, description, images } = this.props.navigation.getParam('product');
+        const { name, id, price, color, material, description, images } = this.props.navigation.getParam('product');
+        console.log(this.props.navigation.getParam('product'))
         return (
             <View style={{ flex: 1 }}>
-
                 <HeaderComponent {...this.props} />
                 <View style={wrapper}>
-                <View style={cardStyle}>
-                    <View style={header}>
-                        <TouchableOpacity onPress={this.goBack.bind(this)}>
-                            <Image style={backStyle} source={back} />
-                        </TouchableOpacity>
-                        <TouchableOpacity>
-                            <Image style={cartStyle} source={cart} />
-                        </TouchableOpacity>
-                    </View>
-                    <View style={imageContainer}>
-                        <ScrollView style={{ flexDirection: 'row', padding: 10, height: swiperHeight }} horizontal >
-                            <Image source={{uri:`${url}${images[0]}`}} style={productImageStyle} />
-                            <Image source={{uri:`${url}${images[1]}`}} style={productImageStyle} />
-                        </ScrollView>
-                    </View>
-                    <View style={footer}>
-                        <View style={titleContainer}>
-                            <Text style={textMain}>
-                                <Text style={textBlack}>{name.toUpperCase()}</Text>
-                                <Text style={textHighlight}> / </Text>
-                                <Text style={textSmoke}>{price}$</Text>
-                            </Text>
+                    <View style={cardStyle}>
+                        <View style={header}>
+                            <TouchableOpacity onPress={this.goBack.bind(this)}>
+                                <Image style={backStyle} source={back} />
+                            </TouchableOpacity>
+                            <TouchableOpacity
+                            onPress = {this.addThisProductToCart.bind(this)}>
+                                <Image style={cartStyle} source={cart} />
+                            </TouchableOpacity>
                         </View>
-                        <View style={descContainer}>
-                            <Text style={descStyle}>{description}</Text>
-                            <View style={{ flexDirection: 'row', justifyContent: 'space-between', paddingTop: 15 }}>
-                                <Text style={txtMaterial}>{material}</Text>
-                                <View style={{ flexDirection: 'row' }} >
-                                    <Text style={txtColor}>{color}</Text>
-                                    <View style={{ height: 15, width: 15, backgroundColor: color.toLowerCase(), borderRadius: 15, marginLeft: 10, borderWidth: 1, borderColor: '#C21C70' }} />
+                        <View style={imageContainer}>
+                            <ScrollView style={{ flexDirection: 'row', padding: 10, height: swiperHeight }} horizontal >
+                                <Image source={{ uri: `${url}${images[0]}` }} style={productImageStyle} />
+                                <Image source={{ uri: `${url}${images[1]}` }} style={productImageStyle} />
+                            </ScrollView>
+                        </View>
+                        <View style={footer}>
+                            <View style={titleContainer}>
+                                <Text style={textMain}>
+                                    <Text style={textBlack}>{name.toUpperCase()}</Text>
+                                    <Text style={textHighlight}> / </Text>
+                                    <Text style={textSmoke}>{price}$</Text>
+                                </Text>
+                            </View>
+                            <View style={descContainer}>
+                                <Text style={descStyle}>{description}</Text>
+                                <View style={{ flexDirection: 'row', justifyContent: 'space-between', paddingTop: 15 }}>
+                                    <Text style={txtMaterial}>{material}</Text>
+                                    <View style={{ flexDirection: 'row' }} >
+                                        <Text style={txtColor}>{color}</Text>
+                                        <View style={{ height: 15, width: 15, backgroundColor: color.toLowerCase(), borderRadius: 15, marginLeft: 10, borderWidth: 1, borderColor: '#C21C70' }} />
+                                    </View>
                                 </View>
                             </View>
                         </View>
                     </View>
                 </View>
-    </View>
             </View>
         )
     }

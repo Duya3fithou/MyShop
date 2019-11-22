@@ -1,59 +1,49 @@
 import React, { Component } from 'react';
-import { View, Text, Dimensions, Image, StyleSheet, ImageBackground, 
-     TouchableOpacity, Platform } from 'react-native';
+import {
+    View, Text, Dimensions, Image, StyleSheet, ImageBackground,
+    TouchableOpacity,
+} from 'react-native';
 const { height, width } = Dimensions.get('window');
-import little from '../../../Images/temp/little.jpg';
-import maxi from '../../../Images/temp/maxi.jpg';
-import party from '../../../Images/temp/party.jpg';
 import { withNavigation } from 'react-navigation';
 import Swiper from "react-native-web-swiper";
 
-
+const url = 'http://192.168.1.13/app/images/type/';
 
 
 class CateAndroid extends Component {
     showDetails = (_id) => {
         this.props.navigation.navigate('ListProduct');
     }
+    gotoListProduct = ListCate => {
+        this.props.navigation.navigate('ListProduct', ListCate);
+      };
     render() {
-            return (
-                <View style={styles.wrapper} >
-                    <View style={{ flex: 1, justifyContent: 'center' }}>
-                        <Text style={styles.textStyle}>LIST OF CATEGORY</Text>
-                    </View>
-                    <View style={styles.imageWrapper}>
-                        <Swiper style={{ flex: 1 }} initialPage={0}>
-                            <TouchableOpacity onPress={() => this.showDetails(1)} >
-                                <ImageBackground source={little} style={styles.imageStyle}>
-                                    <Text style={styles.categoryTitle}>
-                                        Little Dress
-                            </Text>
-                                </ImageBackground>
-                            </TouchableOpacity>
-                            <TouchableOpacity onPress={() => this.showDetails(1)}>
-                                <ImageBackground source={maxi} style={styles.imageStyle} >
-                                    <Text style={styles.categoryTitle}>
-                                        Maxi Dress
-                            </Text>
-                                </ImageBackground>
-                            </TouchableOpacity>
-                            <TouchableOpacity onPress={() => this.showDetails(1)}>
-                                <ImageBackground source={party} style={styles.imageStyle} >
-                                    <Text style={styles.categoryTitle}>
-                                        Party Dress
-                            </Text>
-                                </ImageBackground>
-                            </TouchableOpacity>
-
-                        </Swiper>
-                    </View>
+        const { types } = this.props;
+        return (
+            <View style={styles.wrapper} >
+                <View style={{ flex: 1, justifyContent: 'center' }}>
+                    <Text style={styles.textStyle}>LIST OF CATEGORY</Text>
                 </View>
-
-
-            );
-        }
-       
+                <View style={styles.imageWrapper}>
+                    <Swiper style={{ flex: 1 }} initialPage={0}>
+                        {types.map(e => (
+                            <TouchableOpacity
+                               onPress={() => this.gotoListProduct(e)}
+                                key={e.id}>
+                                <ImageBackground
+                                    source={{ uri: `${url}${e.image}` }}
+                                    style={styles.imageStyle}>
+                                    <Text style={styles.categoryTitle}>{e.name}</Text>
+                                </ImageBackground>
+                            </TouchableOpacity>
+                        ))}
+                    </Swiper>
+                </View>
+            </View>
+        );
     }
+
+}
 export default withNavigation(CateAndroid);
 const imageWidth = width - 40;
 const imageHeight = (imageWidth / 933) * 465;
