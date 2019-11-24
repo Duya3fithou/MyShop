@@ -3,11 +3,26 @@ import { ifIphoneX } from 'react-native-iphone-x-helper'
 import {
   Text, View, Image, TouchableOpacity, StyleSheet, Dimensions, TextInput
 } from 'react-native';
-
+import seachProduct from '../api/seachProduct'
 const { height } = Dimensions.get('window');
+import global from './global.js'
 
 
 export default class HeaderComponent extends Component {
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      txtSeach: ''
+    }
+  }
+  onSeach() {
+    const { txtSeach } = this.state;
+    this.setState({ txtSeach: '' });
+    seachProduct(txtSeach)
+      .then(arrProducts => global.setArraySeach(arrProducts))
+      .catch(err => console.log(err))
+  }
   goBack() {
     this.props.navigation.navigate('Main');
   }
@@ -44,7 +59,9 @@ export default class HeaderComponent extends Component {
             style={styles.textInput}
             placeholder='What do you want to buy'
             underlineColorAndroid='transparent'
-
+            onChangeText={text => this.setState({ txtSeach: text })}
+            onSubmitEditing={this.onSeach.bind(this)}
+            value={this.state.txtSeach}
           >
 
           </TextInput>

@@ -1,13 +1,21 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, TouchableOpacity, ScrollView, View, Image, Dimensions } from 'react-native';
+import { StyleSheet, Text, TouchableOpacity, ScrollView, View, Image, Dimensions, FlatList } from 'react-native';
 import HeaderComponent from '../components/HeaderComponent';
-
-import sp1 from '../Images/temp/sp1.jpeg';
-import sp4 from '../Images/temp/sp4.jpeg';
+const url = 'http://192.168.1.11/app/images/product/';
+import global from '../components/global.js';
 function toTitleCase(str) {
     return str.replace(/\w\S*/g, txt => txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase());
 }
 export default class Seach extends Component {
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            listProduct: []
+        };
+        global.setArraySeach = this.setSeachArray.bind(this)
+    }
+
     static navigationOptions = ({ navigation }) => {
         const { params = {} } = navigation.state;
         let tabBarLabel = 'Seach';
@@ -19,9 +27,14 @@ export default class Seach extends Component {
         );
         return { tabBarLabel, tabBarIcon };
     }
+    setSeachArray(arrProduct) {
+        this.setState({
+            listProduct: arrProduct
+        })
+    }
 
-    gotoDetail() {
-        this.props.navigation.navigate('ProductDetail')
+    gotoDetail(product) {
+        this.props.navigation.navigate('ProductDetail', {product})
     }
     render() {
         const {
@@ -29,43 +42,24 @@ export default class Seach extends Component {
             txtName, txtPrice, productImage,
             txtShowDetail, showDetailContainer, wrapper
         } = styles;
+        console.log("aaaa")
+        console.log(this.state.listProduct)
         return (
             <View style={{ flex: 1 }}>
-
                 <HeaderComponent {...this.props} />
-                <ScrollView style={wrapper}>
-                    <View style={product}>
-                        <Image source={sp1} style={productImage} />
-                        <View style={mainRight}>
-                            <Text style={txtName}>{toTitleCase('black dress')}</Text>
-                            <Text style={txtPrice}>100$</Text>
-                            <Text style={txtMaterial}>Material Fur</Text>
-                            <View style={{ flexDirection: 'row' }} >
-                                <Text style={txtColor}>Color white</Text>
-                                <View
-                                    style={{
-                                        height: 15,
-                                        width: 15,
-                                        backgroundColor: 'white',
-                                        borderRadius: 15,
-                                        marginLeft: 10
-                                    }}
-                                />
-                            </View>
-                            <TouchableOpacity style={showDetailContainer}>
-                                <Text style={txtShowDetail}>Show Details</Text>
-                            </TouchableOpacity>
-                        </View>
-                    </View>
-                    <View style={product}>
-                        <Image source={sp4} style={productImage} />
-                        <View style={mainRight}>
-                            <Text style={txtName}>{toTitleCase('black dress')}</Text>
-                            <Text style={txtPrice}>100$</Text>
-                            <Text style={txtMaterial}>Material Fur</Text>
-                            <View style={{ flexDirection: 'row' }} >
+
+                <FlatList
+                    style={wrapper}
+                    data={this.state.listProduct}
+                    renderItem={({ item }) => (
+                        <View style={product}>
+                            <Image source={{ uri: `${url}${item.images[0]}` }} style={productImage} />
+                            <View style={mainRight}>
+                                <Text style={txtName}>{toTitleCase(item.name)}</Text>
+                                <Text style={txtPrice}>{item.price} $</Text>
+                                <Text style={txtMaterial}>Material: {item.material}</Text>
                                 <View style={{ flexDirection: 'row' }} >
-                                    <Text style={txtColor}>Color white</Text>
+                                    <Text style={txtColor}>{item.color}</Text>
                                     <View
                                         style={{
                                             height: 15,
@@ -76,13 +70,14 @@ export default class Seach extends Component {
                                         }}
                                     />
                                 </View>
+                                <TouchableOpacity style={showDetailContainer}
+                                onPress={()=>{ this.gotoDetail(item)}}>
+                                    <Text style={txtShowDetail}>Show Details</Text>
+                                </TouchableOpacity>
                             </View>
-                            <TouchableOpacity style={showDetailContainer}>
-                                <Text style={txtShowDetail}>Show Details</Text>
-                            </TouchableOpacity>
                         </View>
-                    </View>
-                </ScrollView>
+                    )}
+                />
             </View>
         )
     }
@@ -93,7 +88,7 @@ const imageHeight = (imageWidth * 452) / 361;
 
 const styles = StyleSheet.create({
     wrapper: {
-        backgroundColor: '#F6F6F6',
+        backgroundColor: '#DFDFDF',
         flex: 1
     },
     product: {
