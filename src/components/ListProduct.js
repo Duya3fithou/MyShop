@@ -37,7 +37,7 @@ export default class ListProduct extends Component {
             productContainer, productInfo, productImage, lastRowInfo,
             txtName, txtPrice, txtMaterial, txtColor, txtShowDetail, color } = styles;
         const { name } = this.props.navigation.getParam('ListCate');
-        
+
         return (
             <View style={{ flex: 1 }}>
                 <HeaderComponent {...this.props} />
@@ -65,7 +65,7 @@ export default class ListProduct extends Component {
                                         <View style={lastRowInfo}>
                                             <Text style={txtColor}>{item.color}</Text>
                                             <View style={color} />
-                                            <TouchableHighlight onPress={this.gotoDetails(item)}>
+                                            <TouchableHighlight onPress={() => this.gotoDetails(item)}>
                                                 <Text style={txtShowDetail}>
                                                     Details
                                                   </Text>
