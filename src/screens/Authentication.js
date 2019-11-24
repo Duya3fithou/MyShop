@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import {
     Text, View, Image, TouchableOpacity, StyleSheet, TextInput
 } from 'react-native';
-
+import SignIn from './SignIn'
+import SignUp from './SignUp'
 import { ifIphoneX } from 'react-native-iphone-x-helper'
 import icBack from '../Images/appIcon/back_white.png';
 import icLogo from '../Images/appIcon/ic_logo.png'
@@ -24,6 +25,9 @@ export default class Authentication extends Component {
             isSignIn: false
         })
     }
+    gotoSignIn() {
+        this.setState({isSignIn: true})
+    }
     static navigationOptions = ({ navigation }) => {
         let drawerLabel = 'Authentication';
         let drawerIcon = () => (
@@ -36,28 +40,8 @@ export default class Authentication extends Component {
     }
     render() {
         const { navigate } = this.props.navigation;
-        const signInJSX = (
-            <View >
-                <TextInput style={styles.inputStyle} placeholder={'Enter your email'}>
-
-                </TextInput>
-                <TextInput style={styles.inputStyle} placeholder={'Enter your password'}>
-
-                </TextInput>
-                <TouchableOpacity style={styles.bigButton}>
-                    <Text style={styles.buttonText}>Sign In Now</Text>
-                </TouchableOpacity>
-            </View>
-        );
-        const signUpJSX = (<View >
-            <TextInput style={styles.inputStyle} placeholder={'Enter your name'}></TextInput>
-            <TextInput style={styles.inputStyle} placeholder={'Enter your email'}></TextInput>
-            <TextInput style={styles.inputStyle} placeholder={'Enter your password'}></TextInput>
-            <TextInput style={styles.inputStyle} placeholder={'Re-enter your password'}></TextInput>
-            <TouchableOpacity style={styles.bigButton}>
-                <Text style={styles.buttonText}>Sign Up Now</Text>
-            </TouchableOpacity>
-        </View>);
+        const signInJSX = (<SignIn/>);
+        const signUpJSX = (<SignUp gotoSignIn = {this.gotoSignIn.bind(this)} />);
         const mainJSX = this.state.isSignIn ? signInJSX : signUpJSX;
         return (
             <View style={{ flex: 1 }}>
@@ -72,7 +56,9 @@ export default class Authentication extends Component {
                         <Text style={styles.tittleStyle}>Wearing a Dress</Text>
                         <Image source={icLogo} style={styles.iconStyle}></Image>
                     </View>
+
                     {mainJSX}
+
                     <View style={styles.controlStyle}>
                         <TouchableOpacity style={styles.signInStyle} onPress={this.signIn.bind(this)}>
                             <Text style={this.state.isSignIn ? styles.activeStyle : styles.inActiveStyle}

@@ -8,7 +8,7 @@ function toTitleCase(str) {
 import saveCart from '../api/saveCart.js'
 import getCart from '../api/getCart';
 
-const url = 'http://192.168.1.13/app/images/product/'
+const url = 'http://192.168.1.11/app/images/product/'
 
 export default class Cart extends Component {
 
@@ -98,7 +98,7 @@ export default class Cart extends Component {
                                                 <TouchableOpacity onPress={() => { this.incrQuantity(product11.product.id) }}>
                                                     <Text>+</Text>
                                                 </TouchableOpacity>
-                                                <Text>{product11.quantity}</Text>
+                                                <Text>{(product11.quantity < 1) ? this.removeProduct(product11.product.id) : product11.quantity}</Text>
                                                 <TouchableOpacity onPress={() => { this.decrQuantity(product11.product.id) }}>
                                                     <Text>-</Text>
                                                 </TouchableOpacity>

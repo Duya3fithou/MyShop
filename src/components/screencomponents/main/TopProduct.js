@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { View, Text, StyleSheet, Image, Dimensions, TouchableOpacity, FlatList } from 'react-native';
 
 import { withNavigation } from 'react-navigation';
-const url = 'http://192.168.1.13/app/images/product/';
+const url = 'http://192.168.1.11/app/images/product/';
 
 
 class TopProduct extends Component {

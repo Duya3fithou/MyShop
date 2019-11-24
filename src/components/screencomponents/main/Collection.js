@@ -21,7 +21,7 @@ class Collection extends Component {
                     <Text style={styles.textStyle}>SPRING COLLECTION</Text>
                 </View>
                 <TouchableOpacity style={styles.imageWrapper}
-                    onPress={() => this.showDetails(1)}>
+                   >
                     <View >
                         <Image source={bannerImage} style={styles.imageStyle} />
                     </View>

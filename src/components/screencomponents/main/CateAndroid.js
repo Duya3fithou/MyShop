@@ -7,15 +7,14 @@ const { height, width } = Dimensions.get('window');
 import { withNavigation } from 'react-navigation';
 import Swiper from "react-native-web-swiper";
 
-const url = 'http://192.168.1.13/app/images/type/';
-
+const url = 'http://192.168.1.11/app/images/type/';
 
 class CateAndroid extends Component {
     showDetails = (_id) => {
         this.props.navigation.navigate('ListProduct');
     }
-    gotoListProduct = ListCate => {
-        this.props.navigation.navigate('ListProduct', ListCate);
+    gotoListProduct = (ListCate) => {
+        this.props.navigation.navigate('ListProduct', { ListCate: ListCate});
       };
     render() {
         const { types } = this.props;

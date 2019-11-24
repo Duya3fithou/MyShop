@@ -6,7 +6,7 @@ import {
 const back = require('../Images/appIcon/back.png');
 const cart = require('../Images/appIcon/cartfull.png');
 import HeaderComponent from '../components/HeaderComponent';
-const url = 'http://192.168.1.13/app/images/product/';
+const url = 'http://192.168.1.11/app/images/product/';
 import global from '../components/global.js'
 
 export default class ProductDetail extends Component {
@@ -25,7 +25,7 @@ export default class ProductDetail extends Component {
             descContainer, productImageStyle, descStyle, txtMaterial, txtColor
         } = styles;
         const { name, id, price, color, material, description, images } = this.props.navigation.getParam('product');
-        console.log(this.props.navigation.getParam('product'))
+       
         return (
             <View style={{ flex: 1 }}>
                 <HeaderComponent {...this.props} />

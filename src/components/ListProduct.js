@@ -1,26 +1,48 @@
 import React, { Component } from 'react';
-import { Text, View, Image, TouchableOpacity, StyleSheet, FlatList, ScrollView } from 'react-native';
+import { Text, View, Image, TouchableOpacity, StyleSheet, FlatList, ScrollView, RefreshControl, TouchableHighlight } from 'react-native';
 import HeaderComponent from '../components/HeaderComponent';
 import backList from '../Images/appIcon/backList.png';
 import sp1 from '../Images/temp/sp1.jpeg'
+import getListProduct from '../api/getListProduct.js'
+const url = 'http://192.168.1.11/app/images/product/'
+
 export default class ListProduct extends Component {
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            listProduct: [],
+        }
+
+    }
     goBack() {
         this.props.navigation.navigate('Main');
     }
     gotoDetails = (product) => {
-        this.props.navigation.navigate('ProductDetail',{ product: product });
-        
+        this.props.navigation.navigate('ProductDetail', { product: product });
     }
+    componentDidMount() {
+        const idType = this.props.navigation.getParam('ListCate').id
+        getListProduct(idType, 1)
+            .then(arrProducts => {
+                this.setState({
+                    listProduct: arrProducts
+                })
+            })
+            .catch(err => console.log(err))
+    }
+
     render() {
         const { container, wrapper, header, backIcon, titleStyle,
             productContainer, productInfo, productImage, lastRowInfo,
             txtName, txtPrice, txtMaterial, txtColor, txtShowDetail, color } = styles;
-        const { product } = this.props;
+        const { name } = this.props.navigation.getParam('ListCate');
+        
         return (
             <View style={{ flex: 1 }}>
                 <HeaderComponent {...this.props} />
                 <View style={container}>
-                <ScrollView style={wrapper}>
+                    <View style={wrapper}>
                         <View style={header}>
                             <TouchableOpacity onPress={this.goBack.bind(this)}>
                                 <Image
@@ -28,29 +50,33 @@ export default class ListProduct extends Component {
                                     style={backIcon}
                                 />
                             </TouchableOpacity>
-                            <Text style={titleStyle}>Party Dress</Text>
+                            <Text style={titleStyle}>{name}</Text>
                             <View style={{ width: 30 }} />
                         </View>
-                        <View style={productContainer}>
-                            <Image style={productImage} source={sp1} />
-                            <View style={productInfo}>
-                                <Text style={txtName}>Lace Sleeve Si</Text>
-                                <Text style={txtPrice}>117$</Text>
-                                <Text style={txtMaterial}>Material Silk</Text>
-                                <View style={lastRowInfo}>
-                                    <Text style={txtColor}>Color RoyalBlue</Text>
-                                    <View style={color} />
-                                    <TouchableOpacity>
-                                        <Text style={txtShowDetail}
-                                        onPress = {this.gotoDetail}>
-                                            Details
-                                    </Text>
-                                    </TouchableOpacity>
+                        <FlatList
+                            data={this.state.listProduct}
+                            renderItem={({ item }) => (
+                                <View style={productContainer}>
+                                    <Image style={productImage} source={{ uri: `${url}${item.images[0]}` }} />
+                                    <View style={productInfo}>
+                                        <Text style={txtName}>{item.name}</Text>
+                                        <Text style={txtPrice}>{item.price}$</Text>
+                                        <Text style={txtMaterial}>{item.material}</Text>
+                                        <View style={lastRowInfo}>
+                                            <Text style={txtColor}>{item.color}</Text>
+                                            <View style={color} />
+                                            <TouchableHighlight onPress={this.gotoDetails(item)}>
+                                                <Text style={txtShowDetail}>
+                                                    Details
+                                                  </Text>
+                                            </TouchableHighlight>
+                                        </View>
+                                    </View>
                                 </View>
-                            </View>
-                        </View>
-                        </ScrollView>
-                    
+                            )}
+                        />
+
+                    </View>
                 </View>
             </View>
         )
