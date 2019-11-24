@@ -21,6 +21,8 @@ export default class Cart extends Component {
     }
 
     addProductToCart(product) {
+        const isExist = this.state.cartArray.some(e => e.product.id === product.id);
+        if(isExist) return;
         this.setState(
             { cartArray: this.state.cartArray.concat({ product, quantity: 1 }) },
             () => saveCart(this.state.cartArray));
